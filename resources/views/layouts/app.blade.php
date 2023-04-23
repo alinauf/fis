@@ -141,6 +141,7 @@
             <!-- Sidebar component, swap this element with another sidebar if you like -->
             <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
                 <div class="flex h-16 shrink-0 items-center">
+                    
                     <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=green&shade=600" alt="Your Company">
                     <h4 class="ml-3 text-xl font-semibold">FIS</h4>
                 </div>
