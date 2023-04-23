@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FishController;
+use App\Http\Controllers\FishingVesselController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -31,5 +32,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('fish', FishController::class)->middleware(['auth']);
+Route::resource('fishing-vessel', FishingVesselController::class)->middleware(['auth']);
 
 require __DIR__.'/auth.php';
