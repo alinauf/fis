@@ -93,4 +93,18 @@ class FishController extends Controller
             return redirect()->back()->with('errors', 'Something went wrong.');
         }
     }
+
+    public function storeVariant(Request $request, Fish $fish)
+    {
+
+        $data = $request->all();
+        $data['fish_id'] = $fish->id;
+        $result = $this->fishService->storeVariant($data);
+
+        if ($result['status']) {
+            return redirect()->back()->with('success', $result['payload']);
+        } else {
+            return redirect()->back()->with('errors', $result['payload']);
+        }
+    }
 }

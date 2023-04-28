@@ -38,11 +38,32 @@ formValidationStatus:@entangle('formValidationStatus'),
                                id="name"
                                class="
                             @error('name') border border-red-500 @enderror
-                                   shadow-sm focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm
+                                   shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm
                                    border-gray-300 rounded-md">
                     </div>
 
                     @error('name')
+                    <p class="mt-2 text-sm text-red-600">{{$message}}</p>
+                    @enderror
+                </div>
+
+                {{-- Scientific Name--}}
+                <div class="sm:col-span-3">
+                    <label for="scientific_name" class="block text-sm font-medium text-gray-700"
+                    >
+                        Scientific Name
+                    </label>
+                    <div class="mt-1">
+                        <input type="text" name="scientific_name"
+                               wire:model="scientific_name"
+                               id="scientific_name"
+                               class="
+                            @error('scientific_name') border border-red-500 @enderror
+                                   shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm
+                                   border-gray-300 rounded-md">
+                    </div>
+
+                    @error('scientific_name')
                     <p class="mt-2 text-sm text-red-600">{{$message}}</p>
                     @enderror
                 </div>
@@ -60,7 +81,7 @@ formValidationStatus:@entangle('formValidationStatus'),
                                id="description"
                                class="
                             @error('description') border border-red-500 @enderror
-                                   shadow-sm focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm
+                                   shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm
                                    border-gray-300 rounded-md">
                     </div>
 
@@ -76,7 +97,7 @@ formValidationStatus:@entangle('formValidationStatus'),
         {{--    Validate the form. If Validation passes show modal to confirm--}}
         <div class="mt-8 flex justify-end">
             <button wire:click="validateForm" type="button"
-                    class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-400 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                    class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-400 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                 Update
             </button>
         </div>

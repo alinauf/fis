@@ -1,33 +1,35 @@
 <?php
 
-namespace App\Http\Livewire\Fish;
+namespace App\Http\Livewire\Fish\Variant;
 
 use Livewire\Component;
 
 class Create extends Component
 {
-
+    public $fish;
     public $name;
-    public $description;
-    public $scientific_name;
-
+    public $price;
 
     public $formValidationStatus;
 
+
+    public function mount($fish)
+    {
+        $this->fish = $fish;
+    }
+
     // fish should be unique
     protected $rules = [
-        'name' => 'required|unique:fish,name',
+        'name' => 'required',
+        'price' => 'required|numeric',
     ];
 
     protected $messages =
         [
-            'name.required' => 'Enter a name for the fish',
+            'name.required' => 'Enter a name for the variant',
+            'price.required' => 'Enter a price for the variant',
         ];
 
-    public function mount()
-    {
-        $this->formValidationStatus = false;
-    }
 
     public function updated($propertyName)
     {
@@ -46,6 +48,6 @@ class Create extends Component
 
     public function render()
     {
-        return view('livewire.fish.create');
+        return view('livewire.fish.variant.create');
     }
 }

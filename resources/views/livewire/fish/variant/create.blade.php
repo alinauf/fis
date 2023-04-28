@@ -2,7 +2,7 @@
 formValidationStatus:@entangle('formValidationStatus'),
 }"
 
-     class="mt-2 bg-white px-6 sm:px-6 md:px-4 py-4 shadow overflow-hidden sm:rounded-lg"
+     class="mt-6 bg-white px-6 sm:px-6 md:px-4 py-4 shadow overflow-hidden sm:rounded-lg"
      x-transition:enter="transition ease-out duration-300"
      x-transition:enter-start="opacity-0 transform scale-90"
      x-transition:enter-end="opacity-100 transform scale-100"
@@ -10,20 +10,17 @@ formValidationStatus:@entangle('formValidationStatus'),
 
     <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">
-            <h1 class="text-base font-semibold leading-6 text-gray-900">Create Fish</h1>
-            <p class="mt-2 text-sm text-gray-700">Create a new fish item</p>
+            <h1 class="text-base font-semibold leading-6 text-gray-900">Create Fish Variant</h1>
+            <p class="mt-2 text-sm text-gray-700">Create a new fish variant</p>
 
         </div>
-
-
     </div>
 
-    <form action="{{url("fish")}}" method="POST">
+    <form action="{{url("fish/$fish->id/variant")}}" method="POST">
         @csrf
 
         <div class="">
             <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-
 
                 {{-- Name--}}
                 <div class="sm:col-span-3">
@@ -46,49 +43,26 @@ formValidationStatus:@entangle('formValidationStatus'),
                     @enderror
                 </div>
 
-
-                {{-- Scientific Name--}}
+                {{-- Price--}}
                 <div class="sm:col-span-3">
-                    <label for="scientific_name" class="block text-sm font-medium text-gray-700"
+                    <label for="name" class="block text-sm font-medium text-gray-700"
                     >
-                        Scientific Name
+                        Price <span class="text-red-900">*</span>
                     </label>
                     <div class="mt-1">
-                        <input type="text" name="scientific_name"
-                               wire:model="scientific_name"
-                               id="scientific_name"
+                        <input type="text" name="price"
+                               wire:model="price"
+                               id="price"
                                class="
-                            @error('scientific_name') border border-red-500 @enderror
+                            @error('namprice') border border-red-500 @enderror
                                    shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm
                                    border-gray-300 rounded-md">
                     </div>
 
-                    @error('scientific_name')
+                    @error('price')
                     <p class="mt-2 text-sm text-red-600">{{$message}}</p>
                     @enderror
                 </div>
-
-                {{-- Description--}}
-                <div class="sm:col-span-3">
-                    <label for="des" class="block text-sm font-medium text-gray-700"
-                    >
-                        Description
-                    </label>
-                    <div class="mt-1">
-                        <input type="text" name="description"
-                               wire:model="description"
-                               id="description"
-                               class="
-                            @error('description') border border-red-500 @enderror
-                                   shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm
-                                   border-gray-300 rounded-md">
-                    </div>
-
-                    @error('description')
-                    <p class="mt-2 text-sm text-red-600">{{$message}}</p>
-                    @enderror
-                </div>
-
 
             </div>
         </div>
@@ -103,6 +77,6 @@ formValidationStatus:@entangle('formValidationStatus'),
 
 
         <x-confirm-create-modal title="Are you sure"
-                                subtitle="Please confirm if you would like to create the fish"/>
+                                subtitle="Please confirm if you would like to create the fish variant"/>
     </form>
 </div>

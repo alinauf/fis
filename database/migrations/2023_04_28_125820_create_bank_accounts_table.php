@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fish', function (Blueprint $table) {
+        Schema::create('bank_accounts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('scientific_name')->nullable();
-            $table->string('description')->nullable();
+            $table->foreignId('bank_id')->constrained();
+            $table->foreignId('fishing_vessel_id')->constrained();
+            $table->string('account_number')->unique();
+            $table->string('account_name');
+            $table->boolean('is_default')->default(false);
             $table->timestamps();
             $table->softDeletes();
+
         });
     }
 
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fish');
+        Schema::dropIfExists('bank_accounts');
     }
 };

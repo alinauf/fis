@@ -10,6 +10,7 @@ class Edit extends Component
     public $fish;
     public $name;
     public $description;
+    public $scientific_name;
 
     public $formValidationStatus;
 
@@ -27,6 +28,8 @@ class Edit extends Component
         $this->formValidationStatus = false;
         $this->name = $fish->name;
         $this->description = $fish->description;
+        $this->scientific_name = $fish->scientific_name;
+
     }
 
     public function updated($propertyName)

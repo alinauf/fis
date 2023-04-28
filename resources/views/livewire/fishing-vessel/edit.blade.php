@@ -38,7 +38,7 @@ formValidationStatus:@entangle('formValidationStatus'),
                                id="name"
                                class="
                             @error('name') border border-red-500 @enderror
-                                   shadow-sm focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm
+                                   shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm
                                    border-gray-300 rounded-md">
                     </div>
 
@@ -60,7 +60,7 @@ formValidationStatus:@entangle('formValidationStatus'),
                                id="contact_person"
                                class="
                             @error('contact_person') border border-red-500 @enderror
-                                   shadow-sm focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm
+                                   shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm
                                    border-gray-300 rounded-md">
                     </div>
 
@@ -81,7 +81,7 @@ formValidationStatus:@entangle('formValidationStatus'),
                                id="phone"
                                class="
                             @error('phone') border border-red-500 @enderror
-                                   shadow-sm focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm
+                                   shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm
                                    border-gray-300 rounded-md">
                     </div>
 
@@ -103,7 +103,7 @@ formValidationStatus:@entangle('formValidationStatus'),
                                id="email"
                                class="
                             @error('email') border border-red-500 @enderror
-                                   shadow-sm focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm
+                                   shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm
                                    border-gray-300 rounded-md">
                     </div>
 
@@ -125,7 +125,7 @@ formValidationStatus:@entangle('formValidationStatus'),
                                id="bank_name"
                                class="
                             @error('bank_name') border border-red-500 @enderror
-                                   shadow-sm focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm
+                                   shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm
                                    border-gray-300 rounded-md">
                     </div>
 
@@ -146,7 +146,7 @@ formValidationStatus:@entangle('formValidationStatus'),
                                id="account_name"
                                class="
                             @error('account_name') border border-red-500 @enderror
-                                   shadow-sm focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm
+                                   shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm
                                    border-gray-300 rounded-md">
                     </div>
 
@@ -167,7 +167,7 @@ formValidationStatus:@entangle('formValidationStatus'),
                                id="account_number"
                                class="
                             @error('account_number') border border-red-500 @enderror
-                                   shadow-sm focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm
+                                   shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm
                                    border-gray-300 rounded-md">
                     </div>
 
@@ -185,7 +185,7 @@ formValidationStatus:@entangle('formValidationStatus'),
         {{--    Validate the form. If Validation passes show modal to confirm--}}
         <div class="mt-8 flex justify-end">
             <button wire:click="validateForm" type="button"
-                    class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-400 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                    class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-400 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                 Update
             </button>
         </div>

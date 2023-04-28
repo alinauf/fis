@@ -34,4 +34,8 @@ Route::middleware('auth')->group(function () {
 Route::resource('fish', FishController::class)->middleware(['auth']);
 Route::resource('fishing-vessel', FishingVesselController::class)->middleware(['auth']);
 
+Route::post('fish/{fish}/variant', [FishController::class, 'storeVariant'])->middleware(['auth']);
+
+
+
 require __DIR__.'/auth.php';

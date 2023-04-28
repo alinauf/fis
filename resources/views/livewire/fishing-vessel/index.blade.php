@@ -12,7 +12,7 @@
             </div>
             <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                 <a href="{{url("fishing-vessel/create")}}"
-                   class="block rounded-md bg-green-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Create</a>
+                   class="block rounded-md bg-blue-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">Create</a>
             </div>
         </div>
         <div class="mt-8 flow-root">
@@ -66,7 +66,7 @@
 
                                     <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                         <a href="{{url("fishing-vessel/".$fishingVessel["id"])}}"
-                                           class="text-green-600 hover:text-green-900">View</a>
+                                           class="text-blue-600 hover:text-blue-900">View</a>
                                     </td>
                                 </tr>
 
