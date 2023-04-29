@@ -2,29 +2,27 @@
 formValidationStatus:@entangle('formValidationStatus'),
 }"
 
-     class="mt-2 bg-white px-6 sm:px-6 md:px-4 py-4 shadow overflow-hidden sm:rounded-lg"
+     class="overflow-hidden "
      x-transition:enter="transition ease-out duration-300"
      x-transition:enter-start="opacity-0 transform scale-90"
      x-transition:enter-end="opacity-100 transform scale-100"
 >
 
-    <div class="sm:flex sm:items-center">
-        <div class="sm:flex-auto">
-            <h1 class="text-base font-semibold leading-6 text-gray-900">Create Fish</h1>
-            <p class="mt-2 text-sm text-gray-700">Create a new fish item</p>
+    <header>
+        <h2 class="text-lg font-medium text-gray-900">
+            {{ __('Create Fish') }}
+        </h2>
 
-        </div>
-
-
-    </div>
+        <p class="mt-1 text-sm text-gray-600">
+            {{ __("Create a new fish item") }}
+        </p>
+    </header>
 
     <form action="{{url("fish")}}" method="POST">
         @csrf
 
-        <div class="">
-            <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
 
-
+        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                 {{-- Name--}}
                 <div class="sm:col-span-3">
                     <label for="name" class="block text-sm font-medium text-gray-700"
@@ -91,7 +89,7 @@ formValidationStatus:@entangle('formValidationStatus'),
 
 
             </div>
-        </div>
+
 
         {{--    Validate the form. If Validation passes show modal to confirm--}}
         <div class="mt-8 flex justify-end">

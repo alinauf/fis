@@ -3,10 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bank;
+use App\SL\Collection\FishSL;
 use Illuminate\Http\Request;
 
 class BankController extends Controller
 {
+    private $bankService;
+
+    /**
+     * FishController constructor.
+     * @param  $bankService
+     */
+    public function __construct(FishSL $bankService)
+    {
+        $this->fishService = $bankService;
+    }
+
     /**
      * Display a listing of the resource.
      */

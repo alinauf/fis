@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FishController;
 use App\Http\Controllers\FishingVesselController;
+use App\Http\Controllers\VendorController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::resource('vendor', VendorController::class)->middleware(['auth']);
 Route::resource('fish', FishController::class)->middleware(['auth']);
 Route::resource('fishing-vessel', FishingVesselController::class)->middleware(['auth']);
 

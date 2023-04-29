@@ -2,21 +2,20 @@
 formValidationStatus:@entangle('formValidationStatus'),
 }"
 
-     class="mt-2 bg-white px-6 sm:px-6 md:px-4 py-4 shadow overflow-hidden sm:rounded-lg"
+     class="overflow-hidden"
      x-transition:enter="transition ease-out duration-300"
      x-transition:enter-start="opacity-0 transform scale-90"
      x-transition:enter-end="opacity-100 transform scale-100"
 >
+    <header>
+        <h2 class="text-lg font-medium text-gray-900">
+            {{ __('Edit Fish') }}
+        </h2>
 
-    <div class="sm:flex sm:items-center">
-        <div class="sm:flex-auto">
-            <h1 class="text-base font-semibold leading-6 text-gray-900">Create Fish</h1>
-            <p class="mt-2 text-sm text-gray-700">Create a new fish item</p>
-
-        </div>
-
-
-    </div>
+        <p class="mt-1 text-sm text-gray-600">
+            {{ __("Edit a new fish item") }}
+        </p>
+    </header>
 
     <form action="{{url("fish/$fish->id")}}" method="POST">
         @method('PUT')
