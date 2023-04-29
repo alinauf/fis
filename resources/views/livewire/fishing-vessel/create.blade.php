@@ -25,7 +25,6 @@ formValidationStatus:@entangle('formValidationStatus'),
             <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
 
 
-
                 {{-- Name--}}
                 <div class="sm:col-span-3">
                     <label for="name" class="block text-sm font-medium text-gray-700"
@@ -47,67 +46,20 @@ formValidationStatus:@entangle('formValidationStatus'),
                     @enderror
                 </div>
 
-
-                {{-- Contact Person--}}
+                {{-- Vendor Name--}}
                 <div class="sm:col-span-3">
-                    <label for="contact_person" class="block text-sm font-medium text-gray-700"
-                    >
-                        Contact Person <span class="text-red-900">*</span>
-                    </label>
-                    <div class="mt-1">
-                        <input type="text" name="contact_person"
-                               wire:model="contact_person"
-                               id="contact_person"
-                               class="
-                            @error('contact_person') border border-red-500 @enderror
-                                   shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm
-                                   border-gray-300 rounded-md">
+                    <label for="vendor_id" class="block text-sm font-medium leading-6 text-gray-900">Vendor </label>
+                    <div class="mt-2">
+                        <select id="vendor_id" name="vendor_id"
+                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                            <option selected >Select a vendor</option>
+
+                        @foreach($vendors as $vendor)
+                                <option value="{{$vendor->id}}">{{$vendor->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
-
-                    @error('contact_person')
-                    <p class="mt-2 text-sm text-red-600">{{$message}}</p>
-                    @enderror
-                </div>
-
-                {{-- Phone--}}
-                <div class="sm:col-span-3">
-                    <label for="phone" class="block text-sm font-medium text-gray-700"
-                    >
-                        Phone
-                    </label>
-                    <div class="mt-1">
-                        <input type="text" name="phone"
-                               wire:model="phone"
-                               id="phone"
-                               class="
-                            @error('phone') border border-red-500 @enderror
-                                   shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm
-                                   border-gray-300 rounded-md">
-                    </div>
-
-                    @error('phone')
-                    <p class="mt-2 text-sm text-red-600">{{$message}}</p>
-                    @enderror
-                </div>
-
-
-                {{-- Email--}}
-                <div class="sm:col-span-3">
-                    <label for="email" class="block text-sm font-medium text-gray-700"
-                    >
-                        Email
-                    </label>
-                    <div class="mt-1">
-                        <input type="text" name="email"
-                               wire:model="email"
-                               id="email"
-                               class="
-                            @error('email') border border-red-500 @enderror
-                                   shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm
-                                   border-gray-300 rounded-md">
-                    </div>
-
-                    @error('email')
+                    @error('vendor_id')
                     <p class="mt-2 text-sm text-red-600">{{$message}}</p>
                     @enderror
                 </div>
@@ -115,30 +67,30 @@ formValidationStatus:@entangle('formValidationStatus'),
 
                 <div class="sm:col-span-6">
                     <h2 class="text-base font-semibold leading-7 text-gray-900">Bank Information</h2>
-                    <p class="mt-1 text-sm leading-6 text-gray-600">This information will be used to transfer payments</p>
+                    <p class="mt-1 text-sm leading-6 text-gray-600">This information will be used to transfer
+                        payments</p>
                 </div>
 
-
                 {{-- Bank Name--}}
-                <div class="sm:col-span-3">
-                    <label for="bank_name" class="block text-sm font-medium text-gray-700"
-                    >
-                        Bank Name
-                    </label>
-                    <div class="mt-1">
-                        <input type="text" name="bank_name"
-                               wire:model="bank_name"
-                               id="bank_name"
-                               class="
-                            @error('bank_name') border border-red-500 @enderror
-                                   shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm
-                                   border-gray-300 rounded-md">
-                    </div>
+                <div class="sm:col-span-4">
+                    <label for="bank_id" class="block text-sm font-medium leading-6 text-gray-900">Bank </label>
+                    <div class="mt-2">
+                        <select id="bank_id" name="bank_id"
+                                class="block
+                                  @error('bank_id') border border-red-500 @enderror
+                                 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                            <option selected >Select a bank</option>
 
-                    @error('bank_name')
+                        @foreach($banks as $bank)
+                                <option value="{{$bank->id}}">{{$bank->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @error('bank_id')
                     <p class="mt-2 text-sm text-red-600">{{$message}}</p>
                     @enderror
                 </div>
+
 
                 {{-- Account Name--}}
                 <div class="sm:col-span-3">

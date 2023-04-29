@@ -2,45 +2,50 @@
 
 namespace App\Http\Livewire\FishingVessel;
 
+use \App\Models\Bank;
+use \App\Models\Vendor;
+
 use Livewire\Component;
 
 class Create extends Component
 {
-
-
     public $name;
-    public $contact_person;
+    public $vendor_id;
 
-    public $phone;
-    public $email;
+    public $banks;
+    public $vendors;
 
-    public $bank_name;
+    public $bank_id;
     public $account_name;
     public $account_number;
-
 
     public $formValidationStatus;
 
     // fishing vessel should be unique
     protected $rules = [
         'name' => 'required|unique:fishing_vessels,name',
-        'contact_person' => 'required',
-        'phone' => 'numeric|nullable',
-        'email' => 'email|nullable',
+        'vendor_id' => 'required',
 
-        'bank_name' => 'nullable',
-        'account_name' => 'nullable',
-        'account_number' => 'numeric|nullable',
+        'bank_id' => 'required',
+        'account_name' => 'required',
+        'account_number' => 'numeric|required',
     ];
 
     protected $messages =
         [
-            'name.required' => 'Enter a name for the fish',
-            'contact_person.required' => 'Enter a contact person for the fishing vessel',
+            'name.required' => 'Enter a name for the fishing vessel',
+            'vendor_id.required' => 'Select a vendor',
+            'bank_id.required' => 'Select a bank',
+            'account_name.required' => 'Enter an account name',
+            'account_number.required' => 'Enter an account number',
+
         ];
 
     public function mount()
     {
+        $this->banks = Bank::all();
+        $this->vendors = Vendor::all();
+
         $this->formValidationStatus = false;
     }
 
@@ -57,7 +62,6 @@ class Create extends Component
             $this->formValidationStatus = false;
         }
     }
-
 
 
     public function render()
