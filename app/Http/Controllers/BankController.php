@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bank;
 use App\SL\Collection\FishSL;
+use App\SL\Settings\BankSL;
 use Illuminate\Http\Request;
 
 class BankController extends Controller
@@ -14,9 +15,9 @@ class BankController extends Controller
      * FishController constructor.
      * @param  $bankService
      */
-    public function __construct(FishSL $bankService)
+    public function __construct(BankSL $bankService)
     {
-        $this->fishService = $bankService;
+        $this->bankService = $bankService;
     }
 
     /**
@@ -32,7 +33,7 @@ class BankController extends Controller
      */
     public function create()
     {
-        //
+        return view('bank.create');
     }
 
     /**
@@ -40,7 +41,18 @@ class BankController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'name' => 'required|unique:banks',
+        ]);
+
+        $result = $this->bankService->store($request->all());
+
+        if ($result['status']) {
+            return redirect('settings')->with('success', $result['payload']);
+        } else {
+            return redirect()->back()->with('errors', $result['payload']);
+        }
     }
 
     /**
@@ -56,7 +68,7 @@ class BankController extends Controller
      */
     public function edit(Bank $bank)
     {
-        //
+        return view('bank.edit', ['bank' => $bank]);
     }
 
     /**
@@ -64,7 +76,13 @@ class BankController extends Controller
      */
     public function update(Request $request, Bank $bank)
     {
-        //
+        $result = $this->bankService->update($bank->id, $request->all());
+
+        if ($result['status']) {
+            return redirect('settings')->with('success', $result['payload']);
+        } else {
+            return redirect()->back()->with('errors', $result['payload']);
+        }
     }
 
     /**

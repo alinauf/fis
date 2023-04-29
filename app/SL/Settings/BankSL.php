@@ -27,8 +27,6 @@ class BankSL extends SL
             }
             $bank = new Bank();
             $bank->name = $data['name'];
-            $bank->description = $data['description'] ?? null;
-            $bank->scientific_name = $data['scientific_name'] ?? null;
             $result = $bank->save();
 
             DB::commit();
@@ -49,8 +47,6 @@ class BankSL extends SL
             DB::rollback();
             throw $e;
         }
-
-
     }
 
     public function update($bankId, $data)
