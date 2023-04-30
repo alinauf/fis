@@ -95,6 +95,7 @@ class CollectionSL extends SL
                 return [
                     'status' => true,
                     'payload' => 'The invoice has been successfully created',
+                    'invoice_id' => $invoice->id,
                 ];
             } else {
                 DB::rollback();

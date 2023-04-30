@@ -22,6 +22,7 @@ class CollectionController extends Controller
 
     public function index()
     {
+
         return view('collection.index');
     }
 
@@ -56,13 +57,10 @@ class CollectionController extends Controller
         $result = $this->collectionService->createInvoice($data);
 
         if ($result['status']) {
-            return redirect('collection')->with('success', $result['payload']);
+            return redirect('collection/' . $collection->id . '/invoice/' . $result['invoice_id'])->with('success', $result['payload']);
         } else {
             return redirect()->back()->with('errors', $result['payload']);
         }
-
-
-
 
 
     }

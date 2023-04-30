@@ -25,6 +25,10 @@ return new class extends Migration {
 
             $table->boolean('is_collected')->default(false);
             $table->boolean('is_settled')->default(false);
+
+            $table->dateTime('collected_date')->nullable();
+            $table->dateTime('settled_date')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
 
