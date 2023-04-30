@@ -6,19 +6,12 @@ use App\Http\Controllers\FishingVesselController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\CollectionController;
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -41,7 +34,14 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
 
+    Route::get('collection', [CollectionController::class, 'index'])->name('collection.index');
+    Route::post('collection', [CollectionController::class, 'store'])->name('collection.store');
+
     Route::resource('bank', BankController::class);
+
+    Route::post('collection/{collection}/start',[CollectionController::class, 'startCollection'])->name('collection.start');
+
+    Route::get('collection/{collection}/invoice/{invoice}', [\App\Http\Controllers\InvoiceController::class, 'show'])->name('collection.invoice');
 
 
 });

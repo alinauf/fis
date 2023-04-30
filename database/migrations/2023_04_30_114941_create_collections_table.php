@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('collections', function (Blueprint $table) {
             $table->id();
             $table->string('collection_no');
-            $table->string('comments');
+            $table->string('comments')->nullable();
             $table->string('location');
             $table->timestamps();
             $table->softDeletes();

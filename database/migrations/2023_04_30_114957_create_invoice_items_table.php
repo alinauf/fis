@@ -18,13 +18,14 @@ return new class extends Migration
             $table->foreignId('collection_id');
             $table->foreignId('invoice_id');
             $table->foreignId('fish_id');
+            $table->foreignId('variant_id');
+
 
             $table->integer('quantity')->default(1);
             $table->decimal('price', 9, 2)->default(0.00);
-
             $table->decimal('total', 9, 2)->default(0.00);
             $table->boolean('is_frozen')->default(true);
-            
+
             $table->timestamps();
             $table->softDeletes();
         });

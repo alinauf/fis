@@ -26,6 +26,15 @@ class DatabaseSeeder extends Seeder
         $user->password = bcrypt('Test@123');
         $user->save();
 
+
+        $bank = new \App\Models\Bank();
+        $bank->name = 'BML';
+        $bank->save();
+
+        $bank2 = new \App\Models\Bank();
+        $bank2->name = 'MIB';
+        $bank2->save();
+
         $vendor = new \App\Models\Vendor();
         $vendor->name = 'Test Vendor';
         $vendor->email = 'vendor@example.test';
@@ -48,15 +57,45 @@ class DatabaseSeeder extends Seeder
         $collectionVessel->location = 'Test Location';
         $collectionVessel->save();
 
+
+        $collectionVessel2 = new \App\Models\CollectionVessel();
+        $collectionVessel2->name = 'Test Collection Vessel 2';
+        $collectionVessel2->contact_person = 'Test Contact Person 2';
+        $collectionVessel2->email = 'collection2@example.com';
+        $collectionVessel2->phone = '12345678902';
+        $collectionVessel2->description = 'Test Description 2';
+        $collectionVessel2->location = 'Test Location 2';
+        $collectionVessel2->save();
+
         $fishingVessel = new \App\Models\FishingVessel();
         $fishingVessel->name = 'Test Fishing Vessel';
         $fishingVessel->vendor_id = 1;
         $fishingVessel->save();
 
+
         $fishingVessel = new \App\Models\FishingVessel();
         $fishingVessel->name = 'Test Fishing Vessel 2';
         $fishingVessel->vendor_id = 2;
         $fishingVessel->save();
+
+
+        $bankAccount = new \App\Models\BankAccount();
+        $bankAccount->bank_id = 1;
+        $bankAccount->fishing_vessel_id = 1;
+        $bankAccount->account_number = '1234567890';
+        $bankAccount->account_name = 'Test Account Name';
+        $bankAccount->is_default = true;
+        $bankAccount->save();
+
+        $bankAccount2 = new \App\Models\BankAccount();
+        $bankAccount2->bank_id = 2;
+        $bankAccount2->fishing_vessel_id = 2;
+        $bankAccount2->account_number = '1234567892';
+        $bankAccount2->account_name = 'Test Account Name';
+        $bankAccount2->is_default = true;
+        $bankAccount2->save();
+
+
 
     }
 }
