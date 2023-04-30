@@ -2,21 +2,23 @@
 formValidationStatus:@entangle('formValidationStatus'),
 }"
 
-     class="mt-2 bg-white px-6 sm:px-6 md:px-4 py-4 shadow overflow-hidden sm:rounded-lg"
+     class="overflow-hidden"
      x-transition:enter="transition ease-out duration-300"
      x-transition:enter-start="opacity-0 transform scale-90"
      x-transition:enter-end="opacity-100 transform scale-100"
 >
 
-    <div class="sm:flex sm:items-center">
-        <div class="sm:flex-auto">
-            <h1 class="text-base font-semibold leading-6 text-gray-900">Create Fishing Vessel</h1>
-            <p class="mt-2 text-sm text-gray-700">Create a new fishing vessel</p>
-
-        </div>
 
 
-    </div>
+    <header>
+        <h2 class="text-lg font-medium text-gray-900">
+            {{ __('Create Fishing Vessel') }}
+        </h2>
+
+        <p class="mt-1 text-sm text-gray-600">
+            {{ __("Create a new fishing vessel") }}
+        </p>
+    </header>
 
     <form action="{{url("fishing-vessel")}}" method="POST">
         @csrf
@@ -51,6 +53,7 @@ formValidationStatus:@entangle('formValidationStatus'),
                     <label for="vendor_id" class="block text-sm font-medium leading-6 text-gray-900">Vendor </label>
                     <div class="mt-2">
                         <select id="vendor_id" name="vendor_id"
+                                wire:model="vendor_id"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:max-w-xs sm:text-sm sm:leading-6">
                             <option selected >Select a vendor</option>
 
@@ -76,6 +79,7 @@ formValidationStatus:@entangle('formValidationStatus'),
                     <label for="bank_id" class="block text-sm font-medium leading-6 text-gray-900">Bank </label>
                     <div class="mt-2">
                         <select id="bank_id" name="bank_id"
+                                wire:model="bank_id"
                                 class="block
                                   @error('bank_id') border border-red-500 @enderror
                                  w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:max-w-xs sm:text-sm sm:leading-6">

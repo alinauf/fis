@@ -26,16 +26,10 @@
                                     class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Name
                                 </th>
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                    Contact Person
+                                    Vendor
                                 </th>
 
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                    Phone
-                                </th>
 
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                    Email
-                                </th>
 
                                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                                     <span class="sr-only">Manage</span>
@@ -51,17 +45,10 @@
                                     </td>
 
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                        {{$fishingVessel->contact_person}}
-                                    </td>
-
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                        {{$fishingVessel->phone ?? 'NA'}}
+                                        {{$fishingVessel->vendor->name}}
                                     </td>
 
 
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                        {{$fishingVessel->email ?? 'NA'}}
-                                    </td>
 
 
                                     <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">

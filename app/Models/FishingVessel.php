@@ -11,4 +11,14 @@ class FishingVessel extends Model
     use HasFactory;
     use SoftDeletes;
 
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class);
+    }
+
+    public function bankAccounts()
+    {
+        return $this->hasMany(BankAccount::class);
+    }
+
 }
