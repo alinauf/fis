@@ -2,11 +2,7 @@
 
 namespace App\Http\Livewire\Collection;
 
-use App\Events\InvoiceReopened;
-use App\Models\Collection;
 use App\Models\Variant;
-
-use App\SL\TransactionManagement\TransactionSL;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -19,7 +15,6 @@ class Invoice extends Component
     public $collection;
     public $invoice;
 
-
     public $variantSearch;
 
     public $selectedVariant;
@@ -29,6 +24,11 @@ class Invoice extends Component
     public $variantAmount;
 
     public $quantity;
+
+    public $fish_type;
+
+
+
 
     public $reference;
 
@@ -48,6 +48,7 @@ class Invoice extends Component
         $this->collection = $collection;
         $this->invoice = $invoice;
         $this->quantity = 1;
+        $this->fish_type = 'frozen';
 
     }
 
@@ -133,7 +134,6 @@ class Invoice extends Component
     {
         $this->validate();
 
-
         $data = [$this->invoice->id, $this->invoice->collection_id, $this->selectedVariant->fish_id,
             $this->selectedVariant->id,
             $this->quantity];
@@ -141,8 +141,6 @@ class Invoice extends Component
         $quantity = $this->quantity;
         $amount = $this->selectedVariant->price;
 
-
-        //
         DB::beginTransaction();
 
         try {
@@ -160,6 +158,7 @@ class Invoice extends Component
             $invoiceItem->quantity = $quantity;
             $invoiceItem->price = $amount;
             $invoiceItem->total = $subtotal;
+            $invoiceItem->is_frozen = $this->fish_type == 'frozen' ? true : false;
 
             $invoiceItemResult = $invoiceItem->save();
 
@@ -184,19 +183,7 @@ class Invoice extends Component
         DB::commit();
         \Log::info('Transaction posted successfully');
 
-
         session()->flash('success', 'The Transaction has been successfully posted');
-
-        //
-
-
-//
-//        if ($result) {
-//            session()->flash('success', $result['payload']);
-//        } else {
-//            session()->flash('errors', $result['payload']);
-//        }
-
     }
 
     public function render()

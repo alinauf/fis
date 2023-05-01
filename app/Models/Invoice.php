@@ -17,6 +17,12 @@ class Invoice extends Model
 
     }
 
+    public function collectionVessel()
+    {
+        return $this->belongsTo(CollectionVessel::class);
+
+    }
+
     public function collection()
     {
         return $this->belongsTo(Collection::class);
