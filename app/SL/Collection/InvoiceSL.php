@@ -81,6 +81,14 @@ class InvoiceSL extends SL
     {
         $invoiceItem = \App\Models\InvoiceItem::find($itemId);
 
+        if (!$invoiceItem) {
+            return [
+                'status' => false,
+                'payload' => 'The invoice item does not exist'
+            ];
+        }
+
+
         $invoice = \App\Models\Invoice::find($invoiceItem->invoice_id);
 
         if ($invoice->is_settled || $invoice->is_collected) {

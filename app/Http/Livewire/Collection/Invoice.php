@@ -41,6 +41,9 @@ class Invoice extends Component
     ];
 
 
+    protected $listeners = ['updateInvoiceView'];
+
+
     public function mount($collection, $invoice)
     {
         $this->collection = $collection;
@@ -50,8 +53,14 @@ class Invoice extends Component
 
     }
 
+    public function updateInvoiceView()
+    {
+        $this->mount($this->collection, $this->invoice);
+        $this->render();
+    }
 
-    public function updatedInvariantSearch($property)
+
+    public function updatedVariantSearch($property)
     {
         if ($property == '' || $property == null) {
             $this->selectedVariant = null;
@@ -80,12 +89,15 @@ class Invoice extends Component
         $result = $collection->settleCollection($this->invoice->id);
 
         if ($result['status'] == true) {
+
             session()->flash('success', $result['payload']);
-            $this->render();
+
         } else {
             session()->flash('failure', $result['payload']);
-            $this->render();
+
         }
+        $this->emit('updateInvoiceView');
+
     }
 
     public function reopenCollection()
@@ -95,11 +107,13 @@ class Invoice extends Component
 
         if ($result['status']) {
             session()->flash('success', $result['payload']);
-            $this->render();
+
         } else {
             session()->flash('failure', $result['payload']);
-            $this->render();
+
         }
+        $this->emit('updateInvoiceView');
+
 
     }
 
@@ -132,11 +146,11 @@ class Invoice extends Component
 
         if ($result['status']) {
             session()->flash('success', $result['payload']);
-            $this->render();
+
         } else {
             session()->flash('failure', $result['payload']);
-            $this->render();
         }
+        $this->emit('updateInvoiceView');
 
     }
 
@@ -147,11 +161,12 @@ class Invoice extends Component
 
         if ($result['status']) {
             session()->flash('success', $result['payload']);
-            $this->render();
         } else {
             session()->flash('failure', 'Something went wrong. Please try again later.');
-            $this->render();
         }
+
+        $this->emit('updateInvoiceView');
+
     }
 
 
