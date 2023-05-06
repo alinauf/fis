@@ -52,7 +52,8 @@
                 <div class="col-span-6 sm:col-span-3">
                     <label for="amount" class="block text-sm font-medium text-gray-700">Amount
                     </label>
-                    <input type="text" id="amount" wire:model="variantAmount" @if($invoice->is_settled || $invoice->is_collected) disabled
+                    <input type="text" id="amount" wire:model="variantAmount"
+                           @if($invoice->is_settled || $invoice->is_collected) disabled
                            @endif
                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
@@ -65,7 +66,6 @@
                 </div>
 
 
-
                 <div class="col-span-6 sm:col-span-3">
                     <label class="text-base font-semibold text-gray-900">Fish Type</label>
                     <p class="text-sm text-gray-500">Is the fish frozen or alive</p>
@@ -76,27 +76,30 @@
                                 <input id="frozen" name="fish_type" wire:model="fish_type"
                                        value="frozen"
                                        @if($invoice->is_settled || $invoice->is_collected) disabled @endif
-                                       type="radio" checked class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600">
+                                       type="radio" checked
+                                       class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600">
                                 <label for="frozen" class="ml-3 block text-sm font-medium leading-6 text-gray-900">Frozen</label>
                             </div>
                             <div class="flex items-center">
                                 <input id="live"
                                        value="alive"
                                        @if($invoice->is_settled || $invoice->is_collected) disabled @endif
-                                       name="fish_type" wire:model="fish_type" type="radio" class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600">
-                                <label for="live" class="ml-3 block text-sm font-medium leading-6 text-gray-900">Alive</label>
+                                       name="fish_type" wire:model="fish_type" type="radio"
+                                       class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600">
+                                <label for="live"
+                                       class="ml-3 block text-sm font-medium leading-6 text-gray-900">Alive</label>
                             </div>
                         </div>
                     </fieldset>
                 </div>
 
 
-
             </div>
 
             <div class="flex justify-end ">
-                <button type="button" wire:click="storeInvoiceItem" @if($invoice->is_settled || $invoice->is_collected) disabled @endif
-                class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white
+                <button type="button" wire:click="storeInvoiceItem"
+                        @if($invoice->is_settled || $invoice->is_collected) disabled @endif
+                        class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white
                       @if($invoice->is_settled || $invoice->is_collected) bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 @else
                         bg-slate-500 hover:bg-slate-700 :ring-slate-500 @endif
                         focus:outline-none focus:ring-2 focus:ring-offset-2 focus">
@@ -182,18 +185,15 @@
                     @if($invoice->is_collected && !$invoice->is_settled)
 
                         <div class="flex justify-end text-sm font-medium sm:mt-4">
-                            <button type="button" wire:click="reopenCollection()" class="text-blue-600 hover:text-blue-500">
+                            <button type="button" wire:click="reopenCollection()"
+                                    class="text-blue-600 hover:text-blue-500">
                                 Re-open for collection?
                             </button>
                         </div>
                     @endif
 
 
-
-
                 </dl>
-
-
 
 
             </div>
@@ -251,21 +251,24 @@
                                         <td class="hidden py-6 pr-8 sm:table-cell">{{$item->total}}</td>
 
                                         <td class="whitespace-nowrap py-6 text-right font-medium">
-                                            <a href="#" class="text-red-800">
-                                                <span class="hidden lg:inline">Remove</span>
-                                            </a>
+                                            @if(!$invoice->is_settled && !$invoice->is_collected)
+                                                <button wire:click="removeInvoiceItem({{$item->id}})"
+                                                        class="text-red-800">
+                                                    <span class="hidden lg:inline">Remove</span>
+                                                </button>
+                                            @endif
+
                                         </td>
                                     </tr>
 
                                 @endforeach
 
 
-                                <!-- More products... -->
                                 </tbody>
                             </table>
                         </div>
 
-                        <!-- More orders... -->
+
                     </div>
                 </div>
             </div>
@@ -305,14 +308,13 @@
 
                     @if($invoice->is_collected && !$invoice->is_settled)
 
-                    <div class="flex justify-end text-sm font-medium sm:mt-4">
-                        <button type="button" wire:click="reopenCollection()" class="text-blue-600 hover:text-blue-500">
-                            Re-open for collection?
-                        </button>
-                    </div>
+                        <div class="flex justify-end text-sm font-medium sm:mt-4">
+                            <button type="button" wire:click="reopenCollection()"
+                                    class="text-blue-600 hover:text-blue-500">
+                                Re-open for collection?
+                            </button>
+                        </div>
                     @endif
-
-
 
 
                 </dl>

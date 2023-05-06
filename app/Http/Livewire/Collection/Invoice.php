@@ -3,8 +3,8 @@
 namespace App\Http\Livewire\Collection;
 
 use App\Models\Variant;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
+use App\SL\Collection\CollectionSL;
+use App\SL\Collection\InvoiceSL;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -26,8 +26,6 @@ class Invoice extends Component
     public $quantity;
 
     public $fish_type;
-
-
 
 
     public $reference;
@@ -78,38 +76,29 @@ class Invoice extends Component
 
     public function settleCollection()
     {
-        $invoice = \App\Models\Invoice::find($this->invoice->id);
+        $collection = new CollectionSL();
+        $result = $collection->settleCollection($this->invoice->id);
 
-        if (!$invoice) {
-            return ['status' => false, 'payload' => 'There was an issue with the collection'];
-        }
-
-        $invoice->is_collected = true;
-        $invoice->collected_date = Carbon::now();
-
-        if ($invoice->save()) {
-            session()->flash('success', 'The items have been successfully collected');
+        if ($result['status'] == true) {
+            session()->flash('success', $result['payload']);
             $this->render();
         } else {
-            session()->flash('errors', 'There was an issue with collecting the Items');
+            session()->flash('failure', $result['payload']);
+            $this->render();
         }
     }
 
     public function reopenCollection()
     {
-        $invoice = \App\Models\Invoice::find($this->invoice->id);
+        $collection = new CollectionSL();
+        $result = $collection->markeInvoiceAsNotCollected($this->invoice->id);
 
-        if (!$invoice) {
-            return ['status' => false, 'payload' => 'There was an issue with the collection'];
-        }
-        $invoice->is_collected = false;
-
-
-        if ($invoice->save()) {
-            session()->flash('success', 'The collection has successfullt reopened');
+        if ($result['status']) {
+            session()->flash('success', $result['payload']);
             $this->render();
         } else {
-            session()->flash('errors', 'There was an issue with collecting the Items');
+            session()->flash('failure', $result['payload']);
+            $this->render();
         }
 
     }
@@ -125,65 +114,50 @@ class Invoice extends Component
         }
     }
 
-    public function makeVendorPayment()
-    {
-
-    }
-
     public function storeInvoiceItem()
     {
         $this->validate();
 
-        $data = [$this->invoice->id, $this->invoice->collection_id, $this->selectedVariant->fish_id,
-            $this->selectedVariant->id,
-            $this->quantity];
+        $invoiceSl = new InvoiceSL();
 
-        $quantity = $this->quantity;
-        $amount = $this->selectedVariant->price;
+        $data['invoice_id'] = $this->invoice->id;
+        $data['collection_id'] = $this->invoice->collection_id;
+        $data['fish_id'] = $this->selectedVariant->fish_id;
+        $data['variant_id'] = $this->selectedVariant->id;
+        $data['quantity'] = $this->quantity;
+        $data['variant_price'] = $this->variantAmount;
+        $data['is_frozen'] = $this->fish_type == 'frozen' ? true : false;
 
-        DB::beginTransaction();
+        $result = $invoiceSl->storeInvoiceItem($data);
 
-        try {
-            //calculate subtotal
-            $subtotal = ($amount * $quantity);
-
-            //calculate total
-            $total = ($subtotal );
-
-            $invoiceItem = new \App\Models\InvoiceItem();
-            $invoiceItem->collection_id = $this->invoice->collection_id;
-            $invoiceItem->invoice_id = $this->invoice->id;
-            $invoiceItem->fish_id = $this->selectedVariant->fish_id;
-            $invoiceItem->variant_id = $this->selectedVariant->id;
-            $invoiceItem->quantity = $quantity;
-            $invoiceItem->price = $amount;
-            $invoiceItem->total = $subtotal;
-            $invoiceItem->is_frozen = $this->fish_type == 'frozen' ? true : false;
-
-            $invoiceItemResult = $invoiceItem->save();
-
-
-
-            if ($invoiceItemResult) {
-                $invoice = \App\Models\Invoice::find($this->invoice->id);
-
-                    $invoice->total = ($invoice->total + $invoiceItem->total);
-                    $invoice->balance = ($invoice->balance + $invoiceItem->total);
-
-                $invoice->save();
-            }
-        } catch (\Exception $e) {
-            DB::rollback();
-            \Log::error($e->getMessage());
-
-            session()->flash('failure', 'There was an issue with posting the Transaction');
-
+        if ($result['status']) {
+            session()->flash('success', $result['payload']);
+            $this->render();
+        } else {
+            session()->flash('failure', $result['payload']);
+            $this->render();
         }
 
-        DB::commit();
-        \Log::info('Transaction posted successfully');
+    }
 
-        session()->flash('success', 'The Transaction has been successfully posted');
+    public function removeInvoiceItem($itemId)
+    {
+        $invoiceSL = new InvoiceSL();
+        $result = $invoiceSL->removeInvoiceItem($itemId);
+
+        if ($result['status']) {
+            session()->flash('success', $result['payload']);
+            $this->render();
+        } else {
+            session()->flash('failure', 'Something went wrong. Please try again later.');
+            $this->render();
+        }
+    }
+
+
+    public function makeVendorPayment()
+    {
+
     }
 
     public function render()
