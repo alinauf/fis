@@ -47,6 +47,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('collection/{collection}/invoice/{invoice}/payment', [\App\Http\Controllers\InvoiceController::class, 'handlePayment'])->name('collection.invoice.payment');
 
+    Route::get('inventory', [\App\Http\Controllers\InventoryController::class, 'index'])->name('inventory.index');
+
+
 });
 
 
