@@ -43,7 +43,16 @@ class FishController extends Controller
     {
         $result = $this->fishService->store($request->all());
 
+        $request->validate([
+            'fish_photo' => 'required|image|mimes:jpeg,png,jpg|max:5120',
+        ]);
+
+
         if ($result['status']) {
+            $fish = $result['fish'];
+            if ($request->hasFile('fish_photo') && $request->file('fish_photo')->isValid()) {
+                $fish->addMediaFromRequest('fish_photo')->toMediaCollection('Fish Image');
+            }
             return redirect('fish')->with('success', $result['payload']);
         } else {
             return redirect()->back()->with('errors', $result['payload']);
@@ -73,7 +82,15 @@ class FishController extends Controller
     {
         $result = $this->fishService->update($fish->id, $request->all());
 
+        $request->validate([
+            'fish_photo' => 'required|image|mimes:jpeg,png,jpg|max:5120',
+        ]);
+
         if ($result['status']) {
+            if ($request->hasFile('fish_photo') && $request->file('fish_photo')->isValid()) {
+                $fish->clearMediaCollection('Fish Image');
+                $fish->addMediaFromRequest('fish_photo')->toMediaCollection('Fish Image');
+            }
             return redirect('fish')->with('success', $result['payload']);
         } else {
             return redirect()->back()->with('errors', $result['payload']);

@@ -37,6 +37,7 @@ class FishSL extends SL
                 return [
                     'status' => true,
                     'payload' => 'The fish has been successfully created',
+                    'fish' => $fish,
                 ];
             } else {
                 return [

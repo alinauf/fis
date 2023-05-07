@@ -3,9 +3,11 @@
 namespace App\Http\Livewire\Fish;
 
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Edit extends Component
 {
+    use WithFileUploads;
 
     public $fish;
     public $name;
@@ -14,8 +16,10 @@ class Edit extends Component
 
     public $formValidationStatus;
 
+    public $fish_photo;
+
     protected $rules = [
-        'name' => 'required|unique:fish,name',
+        'name' => 'required',
     ];
 
     protected $messages =
@@ -25,6 +29,7 @@ class Edit extends Component
 
     public function mount($fish)
     {
+//        dd($fish->getFirstMedia('Fish Image'));
         $this->formValidationStatus = false;
         $this->name = $fish->name;
         $this->description = $fish->description;

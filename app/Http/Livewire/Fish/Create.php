@@ -3,13 +3,19 @@
 namespace App\Http\Livewire\Fish;
 
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Create extends Component
 {
 
+    use WithFileUploads;
+
+
     public $name;
     public $description;
     public $scientific_name;
+    public $fish_photo;
+
 
 
     public $formValidationStatus;

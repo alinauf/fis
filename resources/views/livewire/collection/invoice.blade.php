@@ -297,8 +297,10 @@
                                         <td class="py-6 pr-8">
                                             <div class="flex items-center">
 
-                                                {{--                                                <img src="https://tailwindui.com/img/ecommerce-images/order-history-page-02-product-01.jpg"--}}
-                                                {{--                                                     class="mr-6 h-16 w-16 rounded object-cover object-center">--}}
+                                                @if($item->fish->getFirstMediaUrl('Fish Image'))
+                                                    <img src="{{$item->fish->getFirstMediaUrl('Fish Image')}}"
+                                                         class="mr-6 h-16 w-16 rounded object-contain object-center">
+                                                @endif
                                                 <div>
                                                     <div class="font-medium text-gray-900">{{$item->variant->name}}</div>
                                                     <div class="font-medium text-gray-500">{{$item->fish->name}}</div>

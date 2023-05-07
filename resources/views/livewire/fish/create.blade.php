@@ -18,7 +18,10 @@ formValidationStatus:@entangle('formValidationStatus'),
         </p>
     </header>
 
-    <form action="{{url("fish")}}" method="POST">
+    <form action="{{url("fish")}}"
+          enctype="multipart/form-data"
+
+          method="POST">
         @csrf
 
 
@@ -87,8 +90,30 @@ formValidationStatus:@entangle('formValidationStatus'),
                     @enderror
                 </div>
 
-
+            <div class="col-span-full">
+                <label for="fish_photo" class="block text-sm font-medium leading-6 text-gray-900">Photo</label>
+                <div class="mt-2 flex items-center gap-x-3">
+                    @if ($fish_photo&& $errors->isEmpty())
+                        <div class="group relative">
+                            <div class=" w-28 overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 ">
+                                <img src="{{$fish_photo->temporaryUrl()}}" class="h-full w-full object-contain ">
+                            </div>
+                        </div>
+                    @endif
+                    <input id="fish_photo" name="fish_photo" wire:model="fish_photo" type="file" class="sr-only">
+                    <button type="button"
+                            @click="document.getElementById('fish_photo').click()"
+                            class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                        Upload
+                    </button>
+                </div>
+                @error('fish_photo')
+                <p class="mt-2 text-sm text-red-600">{{$message}}</p>
+                @enderror
             </div>
+
+
+        </div>
 
 
         {{--    Validate the form. If Validation passes show modal to confirm--}}
