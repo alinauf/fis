@@ -1,8 +1,12 @@
 <x-app-layout>
-
-
-
-        <livewire:fishing-vessel.index />
-
-
+        <a href="{{url("fishing-vessel")}}">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                        {{ __('Fishing Vessel') }}
+                </h2>
+        </a>
+        <div class="py-12">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                        <livewire:fishing-vessel.index />
+                </div>
+        </div>
 </x-app-layout>

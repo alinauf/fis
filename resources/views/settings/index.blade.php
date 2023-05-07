@@ -76,6 +76,35 @@
                             </div>
                         </div>
 
+                        <div>
+                            <h2 class="text-base font-semibold leading-7 text-gray-900">Collection Vessels</h2>
+                            <p class="mt-1 text-sm leading-6 text-gray-500">View and create collection vessels</p>
+
+                            @if($collectionVessels->count() > 0)
+                                <ul role="list"
+                                    class="mt-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
+                                    @foreach($collectionVessels as $collectionVessel)
+                                        <li class="flex justify-between gap-x-6 py-6">
+                                            <div class="font-medium text-gray-900">{{$collectionVessel->name}}</div>
+                                            <a href="{{route('collection-vessel.edit', $collectionVessel->id)}}"
+                                               class="font-semibold text-blue-600 hover:text-blue-500">
+                                                Update
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+
+
+                            <div class="flex border-t border-gray-100 pt-6">
+                                <a href="{{route('collection-vessel.create')}}"
+                                   class="text-sm font-semibold leading-6 text-blue-600 hover:text-blue-500">
+                                    <span aria-hidden="true">+</span> Add another collection vessel
+                                </a>
+                            </div>
+                        </div>
+
+
 
                     </div>
                 </main>

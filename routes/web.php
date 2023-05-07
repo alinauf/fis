@@ -50,6 +50,11 @@ Route::middleware('auth')->group(function () {
     Route::get('inventory', [\App\Http\Controllers\InventoryController::class, 'index'])->name('inventory.index');
 
 
+
+
+    Route::resource('collection-vessel', \App\Http\Controllers\CollectionVesselController::class);
+
+
 });
 
 
