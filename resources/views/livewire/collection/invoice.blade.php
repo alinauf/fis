@@ -65,6 +65,7 @@
 
     <div class="max-w-full mx-auto sm:px-6 lg:px-8 grid sm:grid-cols-3  gap-x-4 gap-y-6 ">
 
+
         <div class="col-span-2 p-4 sm:py-6 sm:px-8 bg-white  sm:rounded-lg">
             <div>
                 <h3 class="text-lg leading-6 font-medium text-gray-900">Add Invoice Items</h3>
@@ -180,6 +181,8 @@
 
 
         </div>
+
+
         <!-- Invoice Details -->
         <div class="col-span-1 ">
             <div class=" p-8  rounded-lg  bg-white ">
@@ -244,6 +247,25 @@
                             @endif
                         </dd>
                     </div>
+                    @if($invoice->is_settled)
+                        <div class="flex items-center justify-between">
+                            <dt class="text-sm">Payment Reference</dt>
+                            <dd class="text-sm font-medium text-gray-900">
+                                {{$invoice->payment_reference}}
+                                @if($invoice->getFirstMediaUrl('Payment Image'))
+                                    -
+                                    <a
+                                            href="{{$invoice->getFirstMediaUrl('Payment Image')}}"
+                                            download>
+                                <span class="text-blue-900">
+
+                                    Download
+                                </span>
+                                    </a>
+                                @endif
+                            </dd>
+                        </div>
+                    @endif
 
 
                     @if($invoice->is_collected && !$invoice->is_settled)
@@ -388,11 +410,13 @@
                 <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
 
                     @if($invoice->is_collected && !$invoice->is_settled && $invoice->balance>0)
-                        <button type="button"
-                                wire:click="makeVendorPayment"
-                                class="w-full rounded-md border border-transparent bg-green-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-50">
-                            Make Payment
-                        </button>
+                        <div class="w-full rounded-md border border-transparent text-center  bg-green-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-50">
+                            <a href="{{url("collection/$collection->id/invoice/$invoice->id/payment")}}"
+                               class="text-center ">
+                                Make Payment
+                            </a>
+                        </div>
+
                     @endif
 
                     @if(!$invoice->is_collected && !$invoice->is_settled && $invoice->balance>0)

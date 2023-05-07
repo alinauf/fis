@@ -4,6 +4,7 @@ namespace App\SL\Collection;
 
 use App\Models\Invoice;
 use App\SL\SL;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class InvoiceSL extends SL
@@ -109,6 +110,58 @@ class InvoiceSL extends SL
             'status' => true,
             'payload' => 'The invoice item has been successfully removed'
         ];
+
+    }
+
+    public function settleInvoice(Invoice $invoice, $data)
+    {
+
+        $paymentReference = $invoice->collection->id . '-' . $invoice->id;
+        $paymentReference = $data['payment_type'] == 'cash' ? $paymentReference . '-CASH' : $paymentReference . '-BANKTRANSFER';
+
+        $invoice->payment_reference = $paymentReference;
+        $invoice->comments = $data['comments'] ?? null;
+
+        $amount = $data['amount'];
+
+
+        if ($amount >= $invoice->balance) {
+
+
+            $invoice->balance = 0;
+            $invoice->paid = ($invoice->paid + $amount);
+            $invoice->is_settled = true;
+            $invoice->settled_date = Carbon::now();
+            $result = $invoice->save();
+
+            if (!$result) {
+                return [
+                    'status' => false,
+                    'payload' => 'An error occurred while settling the invoice'
+                ];
+            }
+            return [
+                'status' => true,
+                'payload' => 'The invoice has been successfully settled'
+            ];
+        } else {
+            $invoice->paid = ($invoice->paid + $amount);
+            $invoice->balance = ($invoice->balance - $amount);
+        }
+
+        $result = $invoice->save();
+
+        if (!$result) {
+            return [
+                'status' => false,
+                'payload' => 'An error occurred while settling the invoice'
+            ];
+        }
+        return [
+            'status' => true,
+            'payload' => 'The payment has been successfully posted'
+        ];
+
 
     }
 

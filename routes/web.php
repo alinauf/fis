@@ -43,6 +43,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('collection/{collection}/invoice/{invoice}', [\App\Http\Controllers\InvoiceController::class, 'show'])->name('collection.invoice');
 
+    Route::get('collection/{collection}/invoice/{invoice}/payment', [\App\Http\Controllers\InvoiceController::class, 'showPaymentScreen'])->name('collection.invoice.payment-screen');
+
+    Route::post('collection/{collection}/invoice/{invoice}/payment', [\App\Http\Controllers\InvoiceController::class, 'handlePayment'])->name('collection.invoice.payment');
 
 });
 
